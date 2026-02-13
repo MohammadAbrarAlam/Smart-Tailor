@@ -1,5 +1,1 @@
-web: pip freeze > requirements.txt
-git add .
-git commit -m "Updated requirements"
-git push
-
+web: gunicorn SmartTailor.wsgi --bind 0.0.0.0:$PORT
