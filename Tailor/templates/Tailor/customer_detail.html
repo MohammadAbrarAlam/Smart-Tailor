@@ -1,0 +1,115 @@
+{% extends "tailor/base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Customer Info Card -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">👤 Customer Details</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Name:</strong> {{ customer.name }}</p>
+            <p><strong>Phone:</strong> {{ customer.phone }}</p>
+            <p><strong>Customer ID:</strong> {{ customer.customer_id }}</p>
+            <p><strong>Joined:</strong> {{ customer.created_at }}</p>
+
+            <a href="{% url 'delete_customer' customer.id %}" 
+               class="btn btn-danger btn-sm">
+                🗑 Delete Customer
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Measurements Section -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-warning">
+            <h5 class="mb-0">📏 Measurements</h5>
+        </div>
+        <div class="card-body">
+
+            {% if measurements %}
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Dress Type</th>
+                            <th>Measurements</th>
+                            <th>Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in measurements %}
+                        <tr>
+                            <td>{{ m.dress_type }}</td>
+                            <td>
+                                <pre class="mb-0">{{ m.measurements }}</pre>
+                            </td>
+                            <td>{{ m.created_at }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-muted">No measurements found.</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+
+    <!-- Orders Section -->
+
+    <div class="card shadow mt-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Orders</h5>
+        </div>
+
+        <div class="card-body">
+            {% if orders %}
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Dress Type</th>
+                            <th>Order Date</th>
+                            <th>Delivery Date</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.dress_type }}</td>
+                            <td>{{ order.coming_date }}</td>
+                            <td>{{ order.delivery_date }}</td>
+                            <td>₹ {{ order.price }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if order.status == 'Completed' %} bg-success
+                                    {% elif order.status == 'In Progress' %} bg-warning
+                                    {% elif order.status == 'Pending' %} bg-danger
+                                    {% else %} bg-info
+                                    {% endif %}">
+                                    {{ order.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{% url 'update_order' order.id %}" 
+                                class="btn btn-sm btn-outline-primary">
+                                    Update
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+            <p class="text-muted">No orders found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

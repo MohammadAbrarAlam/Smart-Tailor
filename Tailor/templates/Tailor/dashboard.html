@@ -1,0 +1,44 @@
+{% extends "tailor/base.html" %}
+{% block content %}
+
+<h2 class="mb-4">📊 Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white shadow">
+            <div class="card-body">
+                <h5>Total Customers</h5>
+                <h3>{{ total_customers }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-dark text-white shadow">
+            <div class="card-body">
+                <h5>Total Orders</h5>
+                <h3>{{ total_orders }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-warning shadow">
+            <div class="card-body">
+                <h5>Pending Orders</h5>
+                <h3>{{ pending_orders }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card bg-success text-white shadow">
+            <div class="card-body">
+                <h5>Completed Orders</h5>
+                <h3>{{ completed_orders }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
