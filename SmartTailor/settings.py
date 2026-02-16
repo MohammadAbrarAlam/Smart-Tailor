@@ -12,12 +12,18 @@ SECRET_KEY = os.environ.get(
     "django-insecure-development-key"
 )
 
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+#DEBUG = os.environ.get("DEBUG", "False") == "True"
+
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    ".onrender.com",
-    "127.0.0.1",
-    "localhost",
+    'smart-tailor-3tys.onrender.com',
+    'localhost',
+    '127.0.0.1'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://smart-tailor-3tys.onrender.com"
 ]
 
 # =====================================================
