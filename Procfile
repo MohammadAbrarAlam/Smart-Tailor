@@ -1,2 +1,1 @@
-gunicorn SmartTailor.wsgi:application
- 
+web: gunicorn SmartTailor.wsgi:application
