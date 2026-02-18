@@ -1,18 +1,33 @@
-{% extends "tailor/base.html" %}
+{% extends "Tailor/base.html" %}
+
 {% block content %}
 
-<div class="card shadow col-md-6">
-    <div class="card-header bg-info text-white">
-        <h4>Update Order</h4>
-    </div>
-    <div class="card-body">
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-info">
-                Update
-            </button>
-        </form>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">📝 Update Order</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="{% url 'customer_detail' form.instance.customer.id %}" 
+                               class="btn btn-secondary">
+                                ⬅ Back
+                            </a>
+                            <button type="submit" class="btn btn-info">
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 

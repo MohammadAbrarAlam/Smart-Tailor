@@ -24,6 +24,11 @@
                 <div class="mb-3">
                     <label class="form-label">Customer</label>
                     {{ form.customer }}
+                    {% if form.customer.errors %}
+                        <div class="text-danger small">
+                            {{ form.customer.errors }}
+                        </div>
+                    {% endif %}
                 </div>
                 {% endif %}
 
@@ -31,143 +36,25 @@
                 <div class="mb-3">
                     <label class="form-label">Dress Type</label>
                     {{ form.dress_type }}
+                    {% if form.dress_type.errors %}
+                        <div class="text-danger small">
+                            {{ form.dress_type.errors }}
+                        </div>
+                    {% endif %}
                 </div>
 
-                <!-- ================= UPPER BODY ================= -->
-
-                <div class="measurement-field blouse kurti suit gown mb-3">
-                    <label>Shoulder</label>
-                    {{ form.shoulder }}
-                </div>
-
-                <div class="measurement-field blouse kurti suit gown mb-3">
-                    <label>Bust</label>
-                    {{ form.bust }}
-                </div>
-
-                <div class="measurement-field blouse gown mb-3">
-                    <label>Underbust</label>
-                    {{ form.underbust }}
-                </div>
-
-                <div class="measurement-field blouse kurti suit gown salwar lehenga mb-3">
-                    <label>Waist</label>
-                    {{ form.waist }}
-                </div>
-
-                <div class="measurement-field kurti suit gown salwar lehenga mb-3">
-                    <label>Hip</label>
-                    {{ form.hip }}
-                </div>
-
-                <div class="measurement-field blouse kurti suit gown mb-3">
-                    <label>Armhole</label>
-                    {{ form.armhole }}
-                </div>
-
-                <div class="measurement-field blouse kurti suit gown mb-3">
-                    <label>Sleeve Length</label>
-                    {{ form.sleeve_length }}
-                </div>
-
-                <div class="measurement-field blouse kurti suit gown mb-3">
-                    <label>Bicep Round</label>
-                    {{ form.bicep_round }}
-                </div>
-
-                <div class="measurement-field blouse suit mb-3">
-                    <label>Elbow Round</label>
-                    {{ form.elbow_round }}
-                </div>
-
-                <div class="measurement-field blouse suit mb-3">
-                    <label>Wrist Round</label>
-                    {{ form.wrist_round }}
-                </div>
-
-                <!-- ================= SPECIAL ================= -->
-
-                <div class="measurement-field blouse kurti suit gown mb-3">
-                    <label>Neck Depth Front</label>
-                    {{ form.neck_depth_front }}
-                </div>
-
-                <div class="measurement-field blouse kurti suit gown mb-3">
-                    <label>Neck Depth Back</label>
-                    {{ form.neck_depth_back }}
-                </div>
-
-                <div class="measurement-field blouse mb-3">
-                    <label>Blouse Length</label>
-                    {{ form.blouse_length }}
-                </div>
-
-                <div class="measurement-field kurti mb-3">
-                    <label>Kurti Length</label>
-                    {{ form.kurti_length }}
-                </div>
-
-                <div class="measurement-field suit mb-3">
-                    <label>Suit Length</label>
-                    {{ form.suit_length }}
-                </div>
-
-                <div class="measurement-field gown mb-3">
-                    <label>Full Length</label>
-                    {{ form.full_length }}
-                </div>
-
-                <div class="measurement-field blouse gown mb-3">
-                    <label>Apex</label>
-                    {{ form.apex }}
-                </div>
-
-                <div class="measurement-field blouse mb-3">
-                    <label>Shoulder to Apex</label>
-                    {{ form.shoulder_to_apex }}
-                </div>
-
-                <div class="measurement-field kurti mb-3">
-                    <label>Slit Length</label>
-                    {{ form.slit_length }}
-                </div>
-
-                <!-- ================= LOWER BODY ================= -->
-
-                <div class="measurement-field salwar mb-3">
-                    <label>Thigh</label>
-                    {{ form.thigh }}
-                </div>
-
-                <div class="measurement-field salwar mb-3">
-                    <label>Knee</label>
-                    {{ form.knee }}
-                </div>
-
-                <div class="measurement-field salwar mb-3">
-                    <label>Calf</label>
-                    {{ form.calf }}
-                </div>
-
-                <div class="measurement-field salwar mb-3">
-                    <label>Bottom Round</label>
-                    {{ form.bottom_round }}
-                </div>
-
-                <div class="measurement-field salwar mb-3">
-                    <label>Ankle</label>
-                    {{ form.ankle }}
-                </div>
-
-                <div class="measurement-field lehenga mb-3">
-                    <label>Flare (Ghera)</label>
-                    {{ form.flare }}
-                </div>
-
-                <div class="measurement-field lehenga mb-3">
-                    <label>Cancan Length</label>
-                    {{ form.cancan_length }}
-                </div>
+                <!-- Measurement Fields -->
+                {% for field in form %}
+                    {% if field.name not in "customer dress_type" %}
+                        <div class="measurement-field {{ field.name|lower }} mb-3" style="display:none;">
+                            <label>{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-between mt-4">
@@ -194,14 +81,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const dressType = document.getElementById("id_dress_type");
 
     function toggleFields() {
-        const value = dressType.value;
+        const value = dressType.value.toLowerCase();
 
         document.querySelectorAll(".measurement-field").forEach(el => {
             el.style.display = "none";
         });
 
         if (value) {
-            document.querySelectorAll("." + value.toLowerCase()).forEach(el => {
+            document.querySelectorAll("." + value).forEach(el => {
                 el.style.display = "block";
             });
         }

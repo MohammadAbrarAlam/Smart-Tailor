@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-
 urlpatterns = [
 
     # ==========================
@@ -16,6 +15,8 @@ urlpatterns = [
     path('customers/add/', views.add_customer, name='add_customer'),
     path('customers/<int:pk>/', views.customer_detail, name='customer_detail'),
     path('customers/delete/<int:pk>/', views.delete_customer, name='delete_customer'),
+    # Optional: edit customer if implemented
+    # path('customers/edit/<int:pk>/', views.edit_customer, name='edit_customer'),
 
     # ==========================
     # Measurement URLs
@@ -27,6 +28,7 @@ urlpatterns = [
     # Order URLs
     # ==========================
     path('orders/add/', views.add_order, name='add_order'),
+    path('orders/add/<int:customer_id>/', views.add_order, name='add_order_customer'),
     path('orders/update/<int:pk>/', views.update_order, name='update_order'),
 
     # ==========================

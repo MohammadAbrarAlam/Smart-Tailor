@@ -8,6 +8,7 @@ class CustomerAdmin(admin.ModelAdmin):
     search_fields = ("name", "phone")
     list_filter = ("created_at",)
     ordering = ("-created_at",)
+    auto_now_add=True
 
 
 # ==============================
@@ -114,3 +115,4 @@ class OrderAdmin(admin.ModelAdmin):
     )
 
     ordering = ("-coming_date",)
+    readonly_fields = ("coming_date",)
